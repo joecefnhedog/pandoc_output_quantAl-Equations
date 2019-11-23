@@ -16,6 +16,12 @@ def update_remotely(ur):
     process1.wait()
 
 
+def pandoc_tex_to_html():
+    process1 = subprocess.Popen(["pandoc --mathjax -s -o index.html quantal_output_equations.tex"], shell=True, stdout=subprocess.PIPE)
+    process1.wait()
+
+    
+    
 def setup_nginx(sn):
     process1 = subprocess.Popen(["ssh -i /home/lunet/eljb13/Dropbox/rpi_testbed/ssh-key-for-fruit root@" +ipList[sn]+" 'python3 priveleges-nginx-pi.py'"], shell=True, stdout=subprocess.PIPE)
     process1.wait()
@@ -34,7 +40,8 @@ def setup_nginx(sn):
     process8 = subprocess.Popen(["ssh -i /home/lunet/eljb13/Dropbox/rpi_testbed/ssh-key-for-fruit root@" +ipList[sn]+" 'nginx -t'"], shell=True, stdout=subprocess.PIPE)
     process8.wait()
 
-    
+
+pandoc_tex_to_html()    
 send_files(0)
 update_remotely(0)
 setup_nginx(0)
